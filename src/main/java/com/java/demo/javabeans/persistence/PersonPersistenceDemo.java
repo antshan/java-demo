@@ -2,7 +2,6 @@ package com.java.demo.javabeans.persistence;
 
 import com.java.demo.javabeans.properties.Person;
 
-import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
