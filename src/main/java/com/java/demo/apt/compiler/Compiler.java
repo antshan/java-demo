@@ -1,5 +1,6 @@
 package com.java.demo.apt.compiler;
 
+import javax.annotation.processing.Processor;
 import javax.tools.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,8 @@ public class Compiler {
     private File targetDirectory;
 
     private JavaCompiler javaCompiler;
+
+    private Iterable<? extends Processor> processors;
 
     public Compiler(File sourceDirectory,File targetDirectory){
         this.sourceDirectory = sourceDirectory;
@@ -36,6 +39,12 @@ public class Compiler {
         Iterable<? extends JavaFileObject> javaFileObjects = javaFileManager.getJavaFileObjectsFromFiles(sourceFiles);
         JavaCompiler.CompilationTask task = javaCompiler.getTask(new OutputStreamWriter(System.out),javaFileManager,null,null,null,javaFileObjects);
 
+        task.setProcessors(processors);
+
         task.call();
+    }
+
+    public void setProcessors(Processor... processors) {
+        this.processors = Arrays.asList(processors);
     }
 }
